@@ -1,0 +1,17 @@
+<h2>Gerenciar Posts</h2>
+
+<form (ngSubmit)="savePost()" #postForm="ngForm">
+  <input type="text" [(ngModel)]="form.title" name="title" placeholder="Título" required />
+  <textarea [(ngModel)]="form.content" name="content" placeholder="Conteúdo" required></textarea>
+  <button type="submit">{{ editingId ? 'Atualizar' : 'Adicionar' }}</button>
+</form>
+<hr />
+
+<ul>
+  <li *ngFor="let post of posts">
+    <h3>{{ post.title }}</h3>
+    <p>{{ post.content }}</p>
+    <button (click)="editPost(post)">Editar</button>
+    <button (click)="deletePost(post.id)">Excluir</button>
+  </li>
+</ul>
