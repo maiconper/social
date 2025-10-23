@@ -1,0 +1,55 @@
+<div *ngIf="workout; else notFound" class="workout-detail">
+  <h2>🏋️ {{ workout.name }}</h2>
+  <p>📅 {{ workout.days.join(', ') }}</p>
+
+  <button class="add-btn" (click)="openModal()">+ Adicionar exercício</button>
+
+  <hr />
+
+  <h3>💪 Exercícios</h3>
+  <ul>
+    <li *ngFor="let ex of workout.exercises; let i = index">
+      {{ ex.name }} — {{ ex.sets }}x{{ ex.reps }} — {{ ex.weight }}kg
+      <button class="delete-btn" (click)="removeExercise(i)">🗑️</button>
+    </li>
+  </ul>
+
+  <button class="back-btn" (click)="goBack()">⬅ Voltar</button>
+
+  <!-- Modal -->
+  <div class="modal-backdrop" *ngIf="showModal" (click)="closeModal()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <h3>Novo exercício</h3>
+
+      <label>
+        Nome:
+        <input type="text" [(ngModel)]="newExercise.name" placeholder="Ex: Supino reto" />
+      </label>
+
+      <label>
+        Séries:
+        <input type="number" [(ngModel)]="newExercise.sets" />
+      </label>
+
+      <label>
+        Repetições:
+        <input type="number" [(ngModel)]="newExercise.reps" />
+      </label>
+
+      <label>
+        Peso (kg):
+        <input type="number" [(ngModel)]="newExercise.weight" />
+      </label>
+
+      <div class="modal-actions">
+        <button (click)="saveExercise()">Salvar</button>
+        <button (click)="closeModal()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #notFound>
+  <p>Treino não encontrado.</p>
+  <button (click)="goBack()">Voltar</button>
+</ng-template>

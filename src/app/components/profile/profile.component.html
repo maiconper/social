@@ -2,6 +2,10 @@
   <h2>{{ user.name }}</h2>
   <p>{{ user.bio }}</p>
 
+   <div class="actions">
+    <button (click)="addWorkout()">➕ Adicionar treino</button>
+    <button (click)="goToMyWorkouts()">📋 Meus treinos</button>
+  </div>
   <hr />
 
   <!-- Aqui reaproveitamos o CRUD de posts -->

@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { PostsComponent } from "./components/posts/posts.component";
+import { RouterOutlet, RouterLink } from '@angular/router'; // ✅ importa RouterLink
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, PostsComponent],
+  standalone: true,
+  imports: [RouterOutlet, RouterLink], // ✅ adiciona RouterLink aqui
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'social';
-}
+export class AppComponent {}

@@ -1,0 +1,24 @@
+<div class="workouts-container">
+  <div class="header">
+    <h2>🏋️ Meus Treinos</h2>
+    <button (click)="addWorkout()">➕ Novo treino</button>
+  </div>
+
+  <div *ngIf="workouts.length; else empty">
+    <div class="workout-card" *ngFor="let w of workouts">
+      <h3>{{ w.name }}</h3>
+      <p>📅 {{ w.days.join(', ') }}</p>
+      <p>🕓 Última atualização: {{ w.lastUpdate }}</p>
+
+      <div class="actions">
+        <button [routerLink]="['/workouts', w.id]">Ver detalhes</button>
+        <button (click)="editWorkout(w.id)">Editar</button>
+        <button (click)="deleteWorkout(w.id)">Excluir</button>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #empty>
+    <p>Nenhum treino cadastrado ainda.</p>
+  </ng-template>
+</div>
