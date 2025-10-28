@@ -19,32 +19,46 @@
   <!-- Modal -->
   <div class="modal-backdrop" *ngIf="showModal" (click)="closeModal()">
     <div class="modal" (click)="$event.stopPropagation()">
-      <h3>Novo exercício</h3>
+      <ng-container *ngIf="!selectedExercise; else exerciseForm">
+        <h3>Selecione um exercício</h3>
 
-      <label>
-        Nome:
-        <input type="text" [(ngModel)]="newExercise.name" placeholder="Ex: Supino reto" />
-      </label>
+        <ul class="exercise-list">
+          <li
+            *ngFor="let ex of availableExercises"
+            (click)="selectExercise(ex)"
+            class="exercise-item"
+          >
+            {{ ex.name }}
+          </li>
+        </ul>
 
-      <label>
-        Séries:
-        <input type="number" [(ngModel)]="newExercise.sets" />
-      </label>
-
-      <label>
-        Repetições:
-        <input type="number" [(ngModel)]="newExercise.reps" />
-      </label>
-
-      <label>
-        Peso (kg):
-        <input type="number" [(ngModel)]="newExercise.weight" />
-      </label>
-
-      <div class="modal-actions">
-        <button (click)="saveExercise()">Salvar</button>
         <button (click)="closeModal()">Cancelar</button>
-      </div>
+      </ng-container>
+
+      <!-- Form de customização -->
+      <ng-template #exerciseForm>
+        <h3>{{ selectedExercise?.name }}</h3>
+
+        <label>
+          Séries:
+          <input type="number" [(ngModel)]="customExercise.sets" />
+        </label>
+
+        <label>
+          Repetições:
+          <input type="number" [(ngModel)]="customExercise.reps" />
+        </label>
+
+        <label>
+          Carga (kg):
+          <input type="number" [(ngModel)]="customExercise.weight" />
+        </label>
+
+        <div class="modal-actions">
+          <button (click)="confirmAddExercise()">Salvar</button>
+          <button (click)="selectedExercise = null">Voltar</button>
+        </div>
+      </ng-template>
     </div>
   </div>
 </div>

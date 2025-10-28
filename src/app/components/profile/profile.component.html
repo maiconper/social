@@ -1,13 +1,26 @@
 <div class="profile">
+  <h3>🏋️ Treino da Semana — {{ currentMonth }}</h3>
+
+  <div class="calendar">
+    <div
+      class="day"
+      *ngFor="let day of weekDays"
+      [ngClass]="[day.status, day.isToday ? 'today' : '']"
+    >
+      <div class="day-name">{{ day.name }}</div>
+      <div class="day-date">{{ day.date }}</div>
+    </div>
+  </div>
+
   <h2>{{ user.name }}</h2>
   <p>{{ user.bio }}</p>
 
-   <div class="actions">
+  <div class="actions">
     <button (click)="addWorkout()">➕ Adicionar treino</button>
     <button (click)="goToMyWorkouts()">📋 Meus treinos</button>
   </div>
+
   <hr />
 
-  <!-- Aqui reaproveitamos o CRUD de posts -->
   <app-posts></app-posts>
 </div>

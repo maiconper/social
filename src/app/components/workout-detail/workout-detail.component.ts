@@ -48,8 +48,20 @@ export class WorkoutDetailComponent {
     }
   ];
 
+  availableExercises: Exercise[] = [
+    { name: 'Supino reto', sets: 4, reps: 10, weight: 40 },
+    { name: 'Crucifixo', sets: 3, reps: 12, weight: 20 },
+    { name: 'Tríceps pulley', sets: 4, reps: 10, weight: 30 },
+    { name: 'Agachamento livre', sets: 4, reps: 10, weight: 60 },
+    { name: 'Leg press', sets: 4, reps: 12, weight: 120 },
+    { name: 'Cadeira extensora', sets: 3, reps: 15, weight: 40 },
+    { name: 'Rosca direta', sets: 3, reps: 12, weight: 25 },
+    { name: 'Puxada frontal', sets: 3, reps: 10, weight: 50 }
+  ];
+
   showModal = false;
-  newExercise: Exercise = { name: '', sets: 0, reps: 0, weight: 0 };
+  selectedExercise: Exercise | null = null;
+  customExercise: Exercise = { name: '', sets: 0, reps: 0, weight: 0 };
 
   constructor(private route: ActivatedRoute, private router: Router) {}
 
@@ -64,17 +76,26 @@ export class WorkoutDetailComponent {
 
   closeModal(): void {
     this.showModal = false;
-    this.newExercise = { name: '', sets: 0, reps: 0, weight: 0 };
+    this.selectedExercise = null;
+    this.customExercise = { name: '', sets: 0, reps: 0, weight: 0 };
   }
 
-  saveExercise(): void {
-    if (!this.workout) return;
-    if (!this.newExercise.name.trim()) {
-      alert('Informe o nome do exercício!');
-      return;
-    }
+  selectExercise(ex: Exercise): void {
+    this.selectedExercise = ex;
+    this.customExercise = { ...ex };
+  }
 
-    this.workout.exercises.push({ ...this.newExercise });
+  confirmAddExercise(): void {
+    if (!this.workout || !this.selectedExercise) return;
+
+    const newExercise = {
+      name: this.selectedExercise.name,
+      sets: this.customExercise.sets,
+      reps: this.customExercise.reps,
+      weight: this.customExercise.weight
+    };
+
+    this.workout.exercises.push(newExercise);
     this.closeModal();
   }
 
