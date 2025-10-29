@@ -19,6 +19,36 @@
     <button (click)="addWorkout()">➕ Adicionar treino</button>
     <button (click)="goToMyWorkouts()">📋 Meus treinos</button>
     <button (click)="goToHistory()">📅 Histórico de treinos</button>
+    <button (click)="goToBody()">🧍 Meu corpo</button>
+  </div>
+
+  <!-- 🔥 Treino do Dia -->
+  <div class="today-workout" *ngIf="todayWorkout">
+    <div class="header">
+      <h3>🔥 Treino do Dia</h3>
+      <button class="options-btn" (click)="toggleWorkoutMenu()">⚙️</button>
+
+      <!-- Menu suspenso -->
+      <div class="menu" *ngIf="showWorkoutMenu">
+        <button (click)="editWorkout()">✏️ Editar</button>
+        <button (click)="replaceWorkout()">🔁 Substituir</button>
+        <button class="danger" (click)="deleteWorkout()">🗑️ Excluir</button>
+      </div>
+    </div>
+
+    <p><strong>{{ todayWorkout.name }}</strong> — {{ todayWorkout.muscles }}</p>
+
+    <ul>
+      <li *ngFor="let ex of todayWorkout.exercises">
+        {{ ex.name }} — {{ ex.sets }}x{{ ex.reps }} — {{ ex.weight }}kg
+      </li>
+    </ul>
+
+    <div class="actions-row">
+      <button class="start-btn" (click)="startWorkout()">▶️ Iniciar treino</button>
+      <button class="details-btn" (click)="viewWorkoutDetails()">👀 Ver detalhes</button>
+    </div>
+
   </div>
 
   <hr />
