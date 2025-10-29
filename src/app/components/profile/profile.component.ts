@@ -65,4 +65,8 @@ export class ProfileComponent {
     // ✅ agora redireciona corretamente
     this.router.navigate(['/workouts']);
   }
+ 
+  goToHistory() {
+  this.router.navigate(['/history']);
+  }
 }

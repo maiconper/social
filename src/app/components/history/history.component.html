@@ -1,0 +1,51 @@
+<div class="history-container">
+  <h2>📅 Histórico de Treinos</h2>
+
+  <!-- 🔍 Filtro combinado (datas + tipo) -->
+  <div class="filter-bar">
+    <div class="filter-dates">
+      <label>
+        De:
+        <input type="date" disabled />
+      </label>
+      <label>
+        Até:
+        <input type="date" disabled />
+      </label>
+    </div>
+
+    <div class="filter-type">
+      <label>
+        Tipo:
+        <select disabled>
+          <option selected>Todos</option>
+          <option>Concluídos</option>
+          <option>Pendentes</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="filter-actions">
+      <button disabled>Filtrar</button>
+      <button disabled>Limpar</button>
+    </div>
+  </div>
+
+  <hr />
+
+  <div *ngIf="history.length; else noHistory">
+    <div class="history-item" *ngFor="let h of history">
+      <div class="date">{{ h.date }}</div>
+      <div class="info">
+        <strong>{{ h.name }}</strong> — {{ h.muscles }}
+      </div>
+      <div class="status" [ngClass]="h.status">
+        {{ h.status === 'done' ? '✅ Concluído' : '🕓 Pendente' }}
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noHistory>
+    <p>Nenhum treino realizado ainda.</p>
+  </ng-template>
+</div>
