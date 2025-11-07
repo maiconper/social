@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PostsComponent } from '../posts/posts.component';
 import { Router } from '@angular/router';
+import { WorkoutService } from '../../services/workout.service'; // ✅ novo import
 
 interface Day {
   name: string;
@@ -17,10 +18,25 @@ interface Exercise {
   weight: number;
 }
 
+interface WeeklyStats {
+  yoga: number;
+  mobility: number;
+  strength: number;
+  cardio: number;
+  total: number;
+}
+
+
 interface Workout {
   name: string;
   muscles: string;
   exercises: Exercise[];
+}
+
+interface Tag {
+  label: string;
+  color: string;
+  icon: string;
 }
 
 @Component({
@@ -39,19 +55,23 @@ export class ProfileComponent {
   weekDays: Day[] = [];
   currentMonth = '';
   showWorkoutMenu = false;
+  tags: Tag[] = []; // ✅ agora o perfil tem tags
 
-  todayWorkout: Workout | null = {
-    name: 'Treino A',
-    muscles: 'Peito e Tríceps',
-    exercises: [
-      { name: 'Supino reto', sets: 4, reps: 10, weight: 40 },
-      { name: 'Crucifixo', sets: 3, reps: 12, weight: 20 },
-      { name: 'Tríceps pulley', sets: 4, reps: 10, weight: 30 }
-    ]
-  };
+todayWorkout: Workout & { duration: number; calories: number } | null = {
+  name: 'Treino A',
+  muscles: 'Peito e Tríceps',
+  duration: 42,
+  calories: 320,
+  exercises: [
+    { name: 'Supino reto', sets: 4, reps: 10, weight: 40 },
+    { name: 'Crucifixo', sets: 3, reps: 12, weight: 20 },
+    { name: 'Tríceps pulley', sets: 4, reps: 10, weight: 30 }
+  ]
+};
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private workoutService: WorkoutService) {
     this.generateWeek();
+    this.generateTags(); // ✅ gera tags dinâmicas com base no histórico
   }
 
   generateWeek() {
@@ -80,6 +100,28 @@ export class ProfileComponent {
     this.currentMonth = `${monthNames[today.getMonth()]} ${today.getFullYear()}`;
   }
 
+  /** 🔥 Gera as tags automaticamente com base no histórico */
+  generateTags() {
+    const stats = this.workoutService.getWeeklyStats();
+    const tags: Tag[] = [];
+    console.log('📊 Estatísticas semanais:', stats);
+
+    if ((stats.yoga + stats.mobility) >= 2) {
+      tags.push({ label: 'Zen Gains', color: '#9c27b0', icon: '🧘' });
+    }
+    if (stats.strength >= 2) {
+      tags.push({ label: 'Iron Mode', color: '#ff9800', icon: '🏋️' });
+    }
+    if (stats.cardio >= 2) {
+      tags.push({ label: 'Cardio King', color: '#03a9f4', icon: '🚴' });
+    }
+    if (stats.total >= 3) {
+      tags.push({ label: 'Consistency Beast', color: '#4caf50', icon: '💪' });
+    }
+
+    this.tags = tags;
+  }
+
   addWorkout() {
     alert('Função para adicionar treino ainda será implementada!');
   }
@@ -97,8 +139,7 @@ export class ProfileComponent {
   }
 
   viewWorkoutDetails() {
-  // Por enquanto ID fixo (1), depois podemos deixar dinâmico
-  this.router.navigate(['/workouts', 1]);
+    this.router.navigate(['/workouts', 1]);
   }
 
   toggleWorkoutMenu() {

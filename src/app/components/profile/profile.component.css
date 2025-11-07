@@ -1,3 +1,4 @@
+/* ==== Ações globais ==== */
 .actions {
   display: flex;
   gap: 10px;
@@ -12,13 +13,17 @@ button {
   border-radius: 6px;
   cursor: pointer;
   font-weight: 500;
+  transition: 0.2s ease;
 }
 
 button:hover {
   background-color: #0056b3;
 }
+
+/* ==== Perfil ==== */
 .profile {
   padding: 20px;
+  font-family: "Inter", sans-serif;
 }
 
 h3 {
@@ -27,6 +32,7 @@ h3 {
   font-weight: 600;
 }
 
+/* ==== Calendário da semana ==== */
 .calendar {
   display: flex;
   justify-content: space-between;
@@ -47,6 +53,8 @@ h3 {
   justify-content: center;
   align-items: center;
   transition: 0.2s;
+  font-size: 13px;
+  cursor: default;
 }
 
 .day-name {
@@ -56,7 +64,6 @@ h3 {
 }
 
 .day-date {
-  font-size: 13px;
   font-weight: 600;
 }
 
@@ -84,13 +91,20 @@ h3 {
 .today-workout {
   margin-top: 25px;
   background: #fff7f0;
-  padding: 15px 20px;
-  border-radius: 12px;
+  padding: 20px 24px;
+  border-radius: 14px;
   border-left: 5px solid #ff9800;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
   position: relative;
+  transition: 0.3s ease;
 }
 
+.today-workout:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* ==== Cabeçalho do treino ==== */
 .today-workout .header {
   display: flex;
   justify-content: space-between;
@@ -98,11 +112,19 @@ h3 {
   position: relative;
 }
 
+.today-workout .header h3 {
+  color: #1976d2;
+  font-size: 1.15rem;
+  margin: 0;
+  font-weight: 600;
+}
+
 .options-btn {
   background: none;
   border: none;
   font-size: 20px;
   cursor: pointer;
+  transition: 0.2s;
 }
 
 .options-btn:hover {
@@ -122,15 +144,17 @@ h3 {
   flex-direction: column;
   z-index: 10;
   min-width: 160px;
+  overflow: hidden;
 }
 
 .menu button {
   background: none;
   border: none;
-  padding: 10px;
+  padding: 10px 12px;
   text-align: left;
   cursor: pointer;
   font-size: 14px;
+  transition: 0.2s;
 }
 
 .menu button:hover {
@@ -145,11 +169,11 @@ h3 {
   background: #f8d7da;
 }
 
-/* ==== Lista ==== */
+/* ==== Lista de exercícios ==== */
 .today-workout ul {
   list-style: none;
   padding-left: 0;
-  margin-bottom: 12px;
+  margin: 12px 0;
 }
 
 .today-workout li {
@@ -159,25 +183,25 @@ h3 {
   border-radius: 6px;
   border: 1px solid #ffe0b2;
   font-size: 14px;
+  color: #444;
 }
 
-/* ==== Botão principal ==== */
-.start-btn {
-  background: #ff9800;
-  color: white;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 8px;
-  cursor: pointer;
+/* ==== Estatísticas ==== */
+.stats {
+  display: flex;
+  justify-content: space-around;
+  margin: 16px 0;
+  font-size: 0.9rem;
   font-weight: 600;
-  transition: 0.2s;
+  color: #333;
 }
 
-.start-btn:hover {
-  background: #f57c00;
+.stats span {
+  font-size: 1.1rem;
+  margin-right: 4px;
 }
 
-/* ==== Ações do treino ==== */
+/* ==== Botões do treino ==== */
 .actions-row {
   display: flex;
   justify-content: flex-start;
@@ -189,7 +213,7 @@ h3 {
   background: #ff9800;
   color: white;
   border: none;
-  padding: 10px 16px;
+  padding: 10px 18px;
   border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
@@ -198,13 +222,14 @@ h3 {
 
 .start-btn:hover {
   background: #f57c00;
+  transform: scale(1.03);
 }
 
 .details-btn {
   background: #ffffff;
-  color: #007bff;
-  border: 1px solid #007bff;
-  padding: 10px 16px;
+  color: #1976d2;
+  border: 2px solid #1976d2;
+  padding: 10px 18px;
   border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
@@ -212,6 +237,32 @@ h3 {
 }
 
 .details-btn:hover {
-  background: #007bff;
+  background: #1976d2;
   color: white;
+}
+
+/* ==== Tags ==== */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.tag {
+  color: white;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 6px 10px;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  letter-spacing: 0.3px;
+  transition: 0.2s;
+}
+
+.tag:hover {
+  transform: scale(1.05);
 }
